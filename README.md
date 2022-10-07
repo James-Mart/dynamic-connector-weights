@@ -1,11 +1,3 @@
-<!-- **********************************************************************
-Note on LaTeX
-All equations were done on 
-https://www.codecogs.com/latex/eqneditor.php
-
-And then included in markdown by using the "URL Encoded" from codecogs.
-White text and black background are also parameterized on codecogs.
- ********************************************************************** -->
 
 # Bonding curve background
 
@@ -125,6 +117,7 @@ Todo
 ## Notes
 
 * I'm slightly concerned about the change in exponent (n) for the curve when inflation happens. If the exponent falls with inflation, then it has the effect of increasing what the Fractional Reserve Ratio (connector weight), which makes the token price less sensitive to buys/sells. The only force in the opposite direction is subsidization. So for people who never participate in governance (receive subsidies), their tokens would, over time, become increasingly stable.
+    * Perhaps subsidization should just be a market buy, and "inflation" should just be a market sell from the supply of tokens initialized in the relay. This would greatly, greatly simplify the math.
 * Rather than store the token supply and the reserve balance, as in Bancor, we could store the slope parameter (m), exponent (n), and current price. The balances could be transient.
 * Two ways to form a relationship between people to incentivize the discovery of under-valued individuals: "investment" or "prediction market"
 
@@ -155,3 +148,8 @@ Todo
  - [How to make Bonding Curves for Continuous Token Models](https://blog.relevant.community/how-to-make-bonding-curves-for-continuous-token-models-3784653f8b17), by Slava Balasanov
  - [Bonding Curves in Depth: Intiution and Parameterization](https://blog.relevant.community/bonding-curves-in-depth-intuition-parametrization-d3905a681e0a), by Slava Balasanov
  - [Calculator for plotting curves](https://www.desmos.com/calculator/w0dusgn13n)
+ - [Codecogs](https://www.codecogs.com/latex/eqneditor.php) used for generating links to LaTeX
+ <!--
+Included LaTeX in markdown by using the "URL Encoded" from codecogs.
+White text and black background are also parameterized on codecogs.
+-->
