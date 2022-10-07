@@ -87,9 +87,18 @@ A fundamental constraint imposed on the curves used in the Bancor ecosystem is t
 
 However, for some use cases, it may be necessary inflate the Smart Token supply without injecting any new reserve currency (inflation), or to inject additional reserve currency, with no additional Smart Token supply expansion (subsidization).
 
-### Inflation
+## Inflation
 
-To allow for smart token inflation, what we need is a mechanism to determine how to change the supply/price curve given some constraints. The constraints for inflation are that the Smart Token supply should increase sufficiently to achieve a predetermined unit-price decrease, but the reserve token balance should remain fixed. 
+To allow for smart token inflation, what we need is a mechanism to determine how to change the supply/price curve given some constraints. The constraints for inflation are that the Smart Token supply should increase sufficiently to achieve a predetermined unit-price decrease (0 < c < 1),
+
+<!--
+{\color{White} g(s+k)=c*f(s) }
+-->
+
+![equation](https://latex.codecogs.com/svg.image?%5Cbg%7Bblack%7D%7B%5Ccolor%7BWhite%7D%20g(s&plus;k)=c*f(s)%20%7D)
+
+
+Also the reserve token balance should remain fixed:
 
 <!--
 {\color{White} \int_{0}^{s}m_0x^{n_0}=\int_{0}^{s+k}m_1x^{n_1} }
@@ -97,20 +106,47 @@ To allow for smart token inflation, what we need is a mechanism to determine how
 
 ![equation](https://latex.codecogs.com/svg.image?%5Cbg%7Bblack%7D%7B%5Ccolor%7BWhite%7D%20%5Cint_%7B0%7D%5E%7Bs%7Dm_0x%5E%7Bn_0%7D=%5Cint_%7B0%7D%5E%7Bs&plus;k%7Dm_1x%5E%7Bn_1%7D%20%7D)
 
+
 Where `s` is initial supply, `k` is the additional supply through inflation, and `m` and `n` are the curve parameters. Solving the integrals yields:
 
-<!--
-{\color{White} \left ( \frac{m_0s^{n_0+1}}{n_0+1} \right ) = \left ( \frac{m_1(k+s)^{n_1+1}}{n_1+1} \right ) }
--->
+In geometric terms, we're looking for the equation of the purple curve below:
 
-![equation](https://latex.codecogs.com/svg.image?%5Cbg%7Bblack%7D%7B%5Ccolor%7BWhite%7D%20%5Cleft%20(%20%5Cfrac%7Bm_0s%5E%7Bn_0&plus;1%7D%7D%7Bn_0&plus;1%7D%20%5Cright%20)%20=%20%5Cleft%20(%20%5Cfrac%7Bm_1(k&plus;s)%5E%7Bn_1&plus;1%7D%7D%7Bn_1&plus;1%7D%20%5Cright%20)%20%7D)
+![image](/images/second-curve.png)
 
+Where the area under its curve (purple + blue region) is equal to the area under the original curve (purple + red region), and the price (blue horizontal line) is a known fraction of the original price (black horizontal line).
 
-...to be continued when I figure out the math to support inflation...
+... To be continued
 
-### Subsidization
+## Subsidization
 
 Todo
+
+
+## Notes
+
+* I'm slightly concerned about the change in exponent (n) for the curve when inflation happens. If the exponent falls with inflation, then it has the effect of increasing what the Fractional Reserve Ratio (connector weight), which makes the token price less sensitive to buys/sells. The only force in the opposite direction is subsidization. So for people who never participate in governance (receive subsidies), their tokens would, over time, become increasingly stable.
+* Rather than store the token supply and the reserve balance, as in Bancor, we could store the slope parameter (m), exponent (n), and current price. The balances could be transient.
+* Two ways to form a relationship between people to incentivize the discovery of under-valued individuals: "investment" or "prediction market"
+
+### Some equations
+
+`p` = price
+`m` = slope
+`s` = smart token supply
+`n` = exponent
+`b` = area under the curve
+`F` = Fractional reserve ratio
+`k` = the amount of a change in smart token supply
+`M` = market cap
+
+* `p=ms^n` <-- Spot price
+* `p=(b/s)(n+1)` <-- Spot price
+* `p=(b/sF)` <-- Spot price
+* `p=b((k/s)+1)^(n+1)-1)` <-- Price for a given change in supply
+* `F=1/(n+1)`
+* `b=m/(n+1)) * s^(n+1)`
+* `M=sp`
+
 
 
 # Sources
@@ -118,3 +154,4 @@ Todo
  - [Bancor Protocol](https://storage.googleapis.com/website-bancor/2018/04/01ba8253-bancor_protocol_whitepaper_en.pdf), by Eyal Hertzog, Guy Benartzi, Galia Benartzi
  - [How to make Bonding Curves for Continuous Token Models](https://blog.relevant.community/how-to-make-bonding-curves-for-continuous-token-models-3784653f8b17), by Slava Balasanov
  - [Bonding Curves in Depth: Intiution and Parameterization](https://blog.relevant.community/bonding-curves-in-depth-intuition-parametrization-d3905a681e0a), by Slava Balasanov
+ - [Calculator for plotting curves](https://www.desmos.com/calculator/w0dusgn13n)
